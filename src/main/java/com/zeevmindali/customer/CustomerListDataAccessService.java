@@ -56,4 +56,15 @@ public class CustomerListDataAccessService implements CustomerDao{
                 .filter(customer -> !customer.getId().equals(id))
                 .toList();
     }
+
+    @Override
+    public boolean existsCustomerWithId(int id) {
+        return customers.stream().anyMatch(customer -> customer.getId().equals(id));
+    }
+
+    @Override
+    public void updateCustomer(Customer update) {
+        customers.remove(update.getId());
+        customers.add(update);
+    }
 }
