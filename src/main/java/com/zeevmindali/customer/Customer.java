@@ -6,15 +6,32 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+//getting full control on the table instead of letting spring JPA do thinhs for us
+@Table(
+        //table name
+        name = "customer",
+        //our unique contraints
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        //name
+                        name="customer_email_unique",
+                        //columns
+                        columnNames = "email"
+                )
+        }
+)
 public class Customer{
+    //creating a sequance for us, so we will handle the sequence and not JPA
     @Id
     @SequenceGenerator(
-            name ="customer_id_sequence",
-            sequenceName ="customer_id_sequence"
+            name ="customer_id_seq",
+            sequenceName ="customer_id_seq",
+            allocationSize = 1
+
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "customer_id_sequence"
+            generator = "customer_id_seq"
     )
     private Integer id;
     @Column(
@@ -26,7 +43,9 @@ public class Customer{
     )
     private String email;
     @Column(
-            nullable = false
+            nullable = false,
+            unique = true
+
     )
     private Integer age;
 

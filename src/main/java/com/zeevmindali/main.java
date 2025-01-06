@@ -1,5 +1,6 @@
 package com.zeevmindali;
 
+import com.github.javafaker.Faker;
 import com.zeevmindali.customer.Customer;
 import com.zeevmindali.customer.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -19,16 +20,17 @@ public class main {
 
     @Bean
     CommandLineRunner runner(CustomerRepository customerRepository){
+        Faker faker = new Faker();
         return args -> {
             Customer alex = new Customer(
-                    "Alex",
-                    "alex@gmail.com",
-                    21
+                    faker.name().fullName(),
+                    faker.internet().emailAddress(),
+                    faker.number().numberBetween(18,120)
             );
             Customer jamila = new Customer(
-                    "Jamila",
-                    "jamila@gmail.com",
-                    19
+                    faker.name().fullName(),
+                    faker.internet().emailAddress(),
+                    faker.number().numberBetween(18,120)
             );
 
             List<Customer> customers = List.of(alex,jamila);
