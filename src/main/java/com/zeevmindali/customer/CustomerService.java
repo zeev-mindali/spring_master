@@ -10,25 +10,25 @@ import java.util.List;
 @Service
 public class CustomerService {
     private final CustomerDao customerDao;
-    private final CustomerRepository customerRepository;
+    //private final CustomerRepository customerRepository;
 
-    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao, CustomerRepository customerRepository) {
+    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao) {
         this.customerDao = customerDao;
-        this.customerRepository = customerRepository;
+
     }
 
-    public List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers() {
         return customerDao.selectAllCustomers();
     }
 
-    public Customer getCustomers(Integer id){
+    public Customer getCustomer(Integer id) {
         return customerDao.selectCustomerById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Customer with id [%s] not found".formatted(id)));
     }
 
-    public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest){
+    public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
         //check if email exists
-        if (customerDao.existsPersonWithEmail(customerRegistrationRequest.email())){
+        if (customerDao.existsPersonWithEmail(customerRegistrationRequest.email())) {
             throw new DuplicateResourceException("Email already exists");
         }
         //add
@@ -39,11 +39,7 @@ public class CustomerService {
         ));
     }
 
-    public void deleteCustomer(Integer id){
-        //customer is not exists
-        if (!customerRepository.existsById(id)){
-            throw new ResourceNotFoundException("Customer with id [%s] not found".formatted(id));
-        }
+    public void deleteCustomer(Integer id) {
         customerDao.deleteCustomerById(id);
     }
 }

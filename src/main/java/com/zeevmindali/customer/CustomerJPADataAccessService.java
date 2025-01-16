@@ -8,6 +8,7 @@ import java.util.Optional;
 @Repository("jpa")
 public class CustomerJPADataAccessService implements CustomerDao {
 
+
     private final CustomerRepository customerRepository;
 
     public CustomerJPADataAccessService(CustomerRepository customerRepository) {
@@ -16,7 +17,7 @@ public class CustomerJPADataAccessService implements CustomerDao {
 
     @Override
     public List<Customer> selectAllCustomers() {
-       return customerRepository.findAll();
+        return customerRepository.findAll();
     }
 
     @Override

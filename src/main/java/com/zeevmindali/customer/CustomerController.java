@@ -14,22 +14,22 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> getCustomers(){
+    public List<Customer> getCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("{id}")
-    public Customer getCustomerById(@PathVariable("id") Integer id){
-        return customerService.getCustomers(id);
+    public Customer getCustomerById(@PathVariable("id") Integer id) {
+        return customerService.getCustomer(id);
     }
 
     @PostMapping
-    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest){
+    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
         customerService.addCustomer(customerRegistrationRequest);
     }
 
     @DeleteMapping("{id}")
-    public void deleteCustomer(@PathVariable("id") Integer id){
+    public void deleteCustomer(@PathVariable("id") Integer id) {
         customerService.deleteCustomer(id);
     }
 }
